@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://ctc3qj37-3001.asse.devtunnels.ms/';
+const API_URL = 'https://jztd440f-3001.asse.devtunnels.ms';
 
 // สร้างอินสแตนซ์ Axios ทั่วโลกพร้อมการตั้งค่าเริ่มต้น
 const Axios = axios.create({
