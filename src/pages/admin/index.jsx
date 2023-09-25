@@ -10,17 +10,13 @@ import BasicDepartment from './components/adminBasic/basicDepartment'
 import BasicMajor from './components/adminBasic/basicMajor'
 import BasicSemester from './components/adminBasic/basicSemester'
 
-import TeacherMenu from './components/adminTeacherMenu'
-import StaffMenu from './components/adminStaffMenu'
-import StudentMenu from './components/adminStudentMenu'
-// import basiccourse from './components/basicCourse'
 import TableList from './components/adminStudent/tableList'
-import Layout from './layout'
+import { Outlet } from 'react-router-dom'
 
 
 export default function Admin() {
 
-  async function loadData(){
+  async function loadData() {
     try {
       const res = await axios.get("/role")
       const data = await res.data
@@ -29,30 +25,14 @@ export default function Admin() {
 
 
     } catch (error) {
-      
+
     }
   }
 
   return (
-    <Layout>
-      {/* <Navbar /> */}
-      {/* <button className="btn btn-primary" onClick={loadData}>LOAD DATA</button> */}
-      {/* <Banner /> */}
-      <br />
-      {/* <BasicMenu /> */}
-      <Nametitle />
-      {/* <BasicCourse /> */}
-      {/* <BasicFaculty /> */}
-      {/* <BasicDepartment /> */}
-      {/* <BasicMajor /> */}
-      {/* <BasicSemester /> */}
-
-      {/* <TeacherMenu /> */}
-
-      {/* <StaffMenu /> */}
-
-      {/* <StudentMenu /> */}
-      {/* <TableList /> */}
-    </Layout>
+    <div>
+      <Navbar />  
+      <Outlet />
+    </div>
   )
 }
