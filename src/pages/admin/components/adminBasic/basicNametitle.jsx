@@ -8,21 +8,43 @@ export default function basicNametitle() {
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors },
   } = useForm()
 
   let x = 10;
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [editMode, setEditMode] = useState(null)
   const modalRef = useRef()
+  const openModal = useRef()
 
   async function onSubmit(formdata) {
     try {
       console.log(formdata)
       setLoading(true)
+
+      if (editMode){
+        formdata = {...formdata, id_name_title: editMode.id_name_title}
+        const res = await axios.put(`/name_title`, formdata)
+        const data = await res.data
+        if (data) {
+          // alert("เพิ่มข้อมูลสำเร็จ")
+          fetchData()
+          reset({
+            name_title_th: "",
+            name_title_en: "",
+          })
+          modalRef.current.click()
+          setLoading(false)
+        }
+        return
+      }
+
+
       const res = await axios.post("/name_title", formdata)
       const data = await res.data
-      if (data){
+      if (data) {
         // alert("เพิ่มข้อมูลสำเร็จ")
         fetchData()
         reset({
@@ -30,11 +52,22 @@ export default function basicNametitle() {
           name_title_en: "",
         })
         modalRef.current.click()
-        setLoading(false)
       }
     } catch (error) {
       console.error(error)
+    } finally {
+      setLoading(false)
     }
+  }
+
+  function handleEdit(id){
+    console.log(id)
+    const dataForEdit = data.find((item) => item.id_name_title === id)
+
+    setEditMode(dataForEdit)
+    setValue("name_title_th", dataForEdit.name_title_th)
+    setValue("name_title_en", dataForEdit.name_title_en)
+    openModal.current.click()
   }
 
   async function fetchData() {
@@ -56,9 +89,14 @@ export default function basicNametitle() {
 
   return (
     <div>
-      {JSON.stringify(data)}
+      {JSON.stringify(data)} 
+
+
+|
+
+      {JSON.stringify(editMode)}
       {loading && "กำลังโหลดข้อมูล"}
-      <button type="button" className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">+ เพิ่ม</button>
+      <button type="button" className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" ref={openModal}>+ เพิ่ม</button>
       <br />
       <table className="table text-center">
         <thead>
@@ -76,7 +114,7 @@ export default function basicNametitle() {
               <td>{row.name_title_th}</td>
               <td>{row.name_title_en}</td>
               <td>
-                <button type="button" className="btn btn-outline-warning">แก้ไข</button>
+                <button type="button" className="btn btn-outline-warning" onClick={()=>handleEdit(row.id_name_title)}>แก้ไข</button>
                 <button type="button" className="btn btn-outline-danger">ลบ</button>
               </td>
             </tr>
@@ -90,23 +128,26 @@ export default function basicNametitle() {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h1 className="modal-title fs-5" id="exampleModalLabel">เพิ่มคำนำหน้าชื่อ</h1>
+                <h1 className="modal-title fs-5" id="exampleModalLabel">เพิ่มคำนำหน้าชื่อ 
+                  {editMode && "แก้ไขคำนำหน้าชื่อ"}
+                </h1>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
               </div>
               <div className="modal-body">
                 <form>
                   <div className="mb-3">
                     <label htmlFor="recipient-name" className="col-form-label">คำนำหน้าชื่อภาษาไทย :</label>
-                    <input type="text" {...register("name_title_th", {required:true})} className="form-control" id="recipient-name" />
+                    <input type="text" {...register("name_title_th", { required: true })} className="form-control" id="recipient-name" />
                   </div>
                   <div className="mb-3">
                     <label htmlFor="recipient-name" className="col-form-label">คำนำหน้าชื่อภาษาอังกฤษ :</label>
-                    <input type="text" {...register("name_title_en", {required:true})} className="form-control" id="recipient-name" />
+                    <input type="text" {...register("name_title_en", { required: true })} className="form-control" id="recipient-name" />
                   </div>
+
                 </form>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary"  disabled={loading} data-bs-dismiss="modal">ออก</button>
+                <button type="button" className="btn btn-secondary" disabled={loading} data-bs-dismiss="modal">ออก</button>
                 <button type="button" className="btn btn-secondary d-none" ref={modalRef} data-bs-dismiss="modal">ออก</button>
                 <button type="button" onClick={handleSubmit(onSubmit)} disabled={loading} className="btn btn-success">
                   {loading && (

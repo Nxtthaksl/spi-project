@@ -6,7 +6,6 @@ export default function Menu({ onClick }) {
         onClick(menu)
     }
 
-
     return (
         <div className=''>
             <div className=''>
@@ -40,21 +39,17 @@ export default function Menu({ onClick }) {
                             <a href="#" onClick={() => handleClick("Semester")} className='nav-link active text-bg-primary p-2' aria-current='page'>ภาคเรียน</a>
                         </li>
                         <br />
-                        {/* <li className='nav-item text-center'>
-                            <a href="#" onClick={() => handleClick("1")} className='nav-link active text-bg-primary p-2' aria-current='page'>ประเภทการสอบ</a>
+                        <li className='nav-item text-center'>
+                            <a href="#" onClick={() => handleClick("Test_Category")} className='nav-link active text-bg-primary p-2' aria-current='page'>ประเภทการสอบ</a>
                         </li>
                         <br />
                         <li className='nav-item text-center'>
-                            <a href="#" onClick={() => handleClick("1")} className='nav-link active text-bg-primary p-2' aria-current='page'>วิชา</a>
+                            <a href="#" onClick={() => handleClick("Project_Status_Title")} className='nav-link active text-bg-primary p-2' aria-current='page'>สถานะโครงงาน</a>
                         </li>
                         <br />
                         <li className='nav-item text-center'>
-                            <a href="#" onClick={() => handleClick("1")} className='nav-link active text-bg-primary p-2' aria-current='page'>สถานะโครงงาน</a>
+                            <a href="#" onClick={() => handleClick("Room")} className='nav-link active text-bg-primary p-2' aria-current='page'>ห้องสอบ</a>
                         </li>
-                        <br />
-                        <li className='nav-item text-center'>
-                            <a href="#" onClick={() => handleClick("1")} className='nav-link active text-bg-primary p-2' aria-current='page'>ห้องสอบ</a>
-                        </li> */}
                     </ul>
                 </div>
             </div>

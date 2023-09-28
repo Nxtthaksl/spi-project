@@ -6,6 +6,9 @@ import AdminMain from './pages/admin/main'
 import AdminStaff from './pages/admin/components/adminStaff'
 import AdminTeacher from './pages/admin/components/adminTeacher'
 import AdminStudent from './pages/admin/components/adminStudent'
+import AdminProject from './pages/admin/components/adminProject'
+import AdminNews from './pages/admin/components/adminNews'
+import AdminDocument from './pages/admin/components/adminDocument'
 
 
 import StaffPage from './pages/staff'
@@ -47,6 +50,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="staff" element={<AdminStaff />} />
           <Route path="teacher" element={<AdminTeacher />} />
           <Route path="student" element={<AdminStudent />} />
+          <Route path="project" element={<AdminProject />} />
+          <Route path="news" element={<AdminNews />} />
+          <Route path="document" element={<AdminDocument />} />
+          
           {/* <Route path="teacher" element={<TeacherPage />} />
           <Route path="student" element={<StudentPage />} /> */}
         </Route>
